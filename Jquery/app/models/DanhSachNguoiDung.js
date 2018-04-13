@@ -4,6 +4,15 @@ function DanhSachNguoiDung()
     this.ThemNguoiDung = function(nguoiDung){
         this.DSND.push(nguoiDung);
     }
+    this.TinhDiemNguoiDung = function ()
+    {
+        var arrDiem = [];
+        for(var i = 0; i<this.DSND.length; i++)
+        {
+            arrDiem.push(this.DSND[i].Diem);
+        }
+        return arrDiem;
+    }
     //Phương thức tìm kiếm người dùng theo họ tên
     this.TimKiemNguoiDung = function(tuKhoa)
     {

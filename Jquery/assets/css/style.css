@@ -6,3 +6,7 @@ tr.trThongTinNguoiDung:hover
 {
     background:rgba(0,0,0,.1); 
 }
+
+.highlight{
+    background-color: yellow;
+}
