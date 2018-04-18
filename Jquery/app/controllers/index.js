@@ -77,11 +77,11 @@ $(document).ready(function () {
                     data-sodt = "${nguoiDung.SoDT}"
                 >
                     <td><input class="ckbXoaNguoiDung" type="checkbox" value="${nguoiDung.TaiKhoan}" /></td>
-                    <td>${nguoiDung.TaiKhoan}</td>
-                    <td>${nguoiDung.MatKhau}</td>
-                    <td class="tdHoTen">${nguoiDung.HoTen}</td>
-                    <td>${nguoiDung.Email}</td>
-                    <td>${nguoiDung.SoDT}</td> 
+                    <td class="tdThongTinNguoiDung">${nguoiDung.TaiKhoan}</td>
+                    <td class="tdThongTinNguoiDung">${nguoiDung.MatKhau}</td>
+                    <td class="tdHoTen tdThongTinNguoiDung">${nguoiDung.HoTen}</td>
+                    <td class="tdThongTinNguoiDung">${nguoiDung.Email}</td>
+                    <td class="tdThongTinNguoiDung">${nguoiDung.SoDT}</td> 
                 </tr>
             `;
         }
@@ -133,10 +133,14 @@ $(document).ready(function () {
         localStorage.setItem("DanhSachNguoiDung", jsonDSND);
     }
     function LayStorage() {
-        //Lấy dữ liệu từ localstorage
-        var jsonDSND = localStorage.getItem("DanhSachNguoiDung");
-        danhSachNguoiDung.DSND = JSON.parse(jsonDSND);
-        LoadDanhSachNguoiDung(danhSachNguoiDung.DSND);
+        //Kiểm tra localstorage có dữ liệu hay không, có thì mới thực thi
+        if(localStorage.getItem("DanhSachNguoiDung"))
+        {
+             //Lấy dữ liệu từ localstorage
+            var jsonDSND = localStorage.getItem("DanhSachNguoiDung");
+            danhSachNguoiDung.DSND = JSON.parse(jsonDSND);
+            LoadDanhSachNguoiDung(danhSachNguoiDung.DSND);
+        }
     }
     LayStorage();
 
@@ -157,12 +161,14 @@ $(document).ready(function () {
     });
 
     //Cài đặt sự kiện click cho dòng tr
-    $("body").delegate(".trThongTinNguoiDung", "click", function () {
-        var taiKhoan = $(this).attr("data-taikhoan");
-        var matKhau = $(this).attr("data-matkhau");
-        var hoTen = $(this).attr("data-hoten");
-        var email = $(this).attr("data-email");
-        var soDT = $(this).attr("data-sodt");
+    $("body").delegate(".tdThongTinNguoiDung", "click", function () {
+        //var This = $(this).closest(".trThongTinNguoiDung");
+        var This = $(this).parent();//là thẻ cha tr của td đang được click
+        var taiKhoan = This.attr("data-taikhoan");
+        var matKhau = This.attr("data-matkhau");
+        var hoTen = This.attr("data-hoten");
+        var email = This.attr("data-email");
+        var soDT = This.attr("data-sodt");
         //Gán dữ liệu vào popup
         $("#TaiKhoan").val(taiKhoan);
         $("#MatKhau").val(matKhau);
